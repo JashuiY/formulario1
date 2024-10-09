@@ -73,6 +73,14 @@
             margin-top: 20px;
             margin-left: 20px;
         }
+        select[multiple] {
+            height: 30px;
+            vertical-align: top;
+        }
+        select[multiple]:focus,
+        select[multiple]:active {
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -81,7 +89,7 @@
         <form id="dataForm">
             <div class="form-group">
                 <label for="turno">Turno:</label>
-                <select id="turno" name="turno" required>
+                <select id="turno" multiple name="turno" required>
                     <option style="display:none"></option>
                     <option value="Jornada Acumulada">Jornada Acumulada</option>
                     <option value="Matutino">Matutino</option>
@@ -92,7 +100,7 @@
             
             <div class="form-group">
                 <label for="servicio">Servicio:</label>
-                <select id="servicio" name="servicio" required>
+                <select id="servicio" multiple name="servicio" required>
                     <option style="display:none"></option>
                     <option value="Alergia E Inmunologia">Alergia E Inmunología</option>
                     <option value="Angiologia">Angiología</option>
