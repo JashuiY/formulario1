@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit to Google Sheets</title>
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .form-group label {
+            width: 150px;
+            margin-right: 10px;
+            margin-left: 20px;
+        }
+        .form-group input, .form-group select {
+            flex: 1;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .radio-group, .checkbox-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .form-group .checkbox-group {
+            flex-direction: column;
+        }
+        .submit-btn {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        fieldset{
+            width: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+        .field1{
+            width: 48%;
+        }
+        .field2{
+            width: 100%;
+        }
+        .boton{
+            height:50px;
+            width:100px;
+        }
+        div{
+            padding: 5px;
+        }
+        input.checkbox {
+            margin-top: 20px;
+        }
+        h4{
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h2 align="center">Formulario de Observación</h2>
+    <div class="form-container">
+        <form id="dataForm">
+            <div class="form-group">
+                <label for="turno">Turno:</label>
+                <select id="turno" name="turno" required>
+                    <option style="display:none"></option>
+                    <option value="Jornada Acumulada">Jornada Acumulada</option>
+                    <option value="Matutino">Matutino</option>
+                    <option value="Mov">Mov</option>
+                    <option value="Nocturno">Nocturno</option>
+                </select>
+
+                <label for="servicio">Servicio:</label>
+                <select id="servicio" name="servicio" required>
+                    <option style="display:none"></option>
+                    <option value="Alergia E Inmunologia">Alergia E Inmunología</option>
+                    <option value="Angiologia">Angiología</option>
+                    <option value="Atencion Medica Continua">Atención Medica Continua</option>
+                    <option value="Biologia De La Reproduccion">Biología De La Reproducción</option>
+                    <option value="Cardiologia">Cardiología</option>
+                    <option value="Cardiologia Pediatrica">Cardiología Pediátrica</option>
+                    <option value="Cirugia Cardiovascular">Cirugía Cardiovascular</option>
+                    <option value="Cirugia Cardiovascular Pediatrica">Cirugía Cardiovascular Pediátrica</option>
+                    <option value="Cirugia De Cabeza Y Cuello">Cirugía De Cabeza Y Cuello</option>
+                    <option value="Cirugia De Colon Y Recto">Cirugía De Colon Y Recto</option>
+                    <option value="Cirugia General">Cirugía General</option>
+                    <option value="Cirugia Maxilofacial">Cirugía Maxilofacial</option>
+                    <option value="Cirugia Maxilofacial Pediatrica">Cirugía Maxilofacial Pediátrica</option>
+                    <option value="Cirugia Pediatrica">Cirugía Pediátrica</option>
+                    <option value="Cirugia Plastica Y Reconstructiva">Cirugía Plástica Y Reconstructiva</option>
+                    <option value="Cirugia Plastica Y Reconstructiva Pediatrica">Cirugía Plástica Y Reconstructiva Pediátrica</option>
+                    <option value="Consulta Externa">Consulta Externa</option>
+                    <option value="Cunero Patologico">Cunero Patológico</option>
+                    <option value="Curacion De Heridas">Curación de Heridas</option>
+                    <option value="Dermatologia">Dermatología</option>
+                    <option value="Endocrinologia Y Nutricion">Endocrinología Y Nutrición</option>
+                    <option value="Endocrinologia Y Nutricion Pediatrica">Endocrinología Y Nutrición Pediátrica</option>
+                    <option value="Endoscopia">Endoscopia</option>
+                    <option value="Estomatologia">Estomatología</option>
+                    <option value="Gastroenterologia">Gastroenterología</option>
+                    <option value="Gastroenterologia Pediatrica">Gastroenterología Pediátrica</option>
+                    <option value="Ginecologia">Ginecología</option>
+                    <option value="Ginecologia Y Obstetricia">Ginecología Y Obstetricia</option>
+                    <option value="Hematologia">Hematología</option>
+                    <option value="Hematologia Pediatrica">Hematología Pediátrica</option>
+                    <option value="Hemodialisis">Hemodiálisis</option>
+                    <option value="Hemodinamia">Hemodinamia</option>
+                    <option value="Infectologia">Infectología</option>
+                    <option value="Infectologia Pediatrica">Infectología Pediátrica</option>
+                    <option value="Laboratorio">Laboratorio</option>
+                    <option value="Medicina Familiar">Medicina Familiar</option>
+                    <option value="Medicina Fisica Y Rehabilitacion">Medicina Física Y Rehabilitación</option>
+                    <option value="Medicina Interna">Medicina Interna</option>
+                    <option value="Medicina Nuclear">Medicina Nuclear</option>
+                    <option value="Modulo De Atencion Respiratoria">Modulo De Atención Respiratoria</option>
+                    <option value="Nefrologia">Nefrología</option>
+                    <option value="Nefrologia Pediatrica">Nefrología Pediátrica</option>
+                    <option value="Neumologia">Neumología</option>
+                    <option value="Neumologia Pediatrica">Neumología Pediátrica</option>
+                    <option value="Neurocirugia">Neurocirugía</option>
+                    <option value="Neurocirugia Pediatrica">Neurocirugía Pediátrica</option>
+                    <option value="Neurofisiologia">Neurofisiología</option>
+                    <option value="Neurologia">Neurología</option>
+                    <option value="Neurologia Pediatrica">Neurología Pediátrica</option>
+                    <option value="Nutricion Y Dietetica">Nutrición Y Dietética</option>
+                    <option value="Obstetricia">Obstetricia</option>
+                    <option value="Oftalmologia">Oftalmología</option>
+                    <option value="Oftalmologia Pediatrica">Oftalmología Pediátrica</option>
+                    <option value="Oncologia Medica">Oncología Medica</option>
+                    <option value="Oncologia Medica Pediatrica">Oncología Medica Pediátrica</option>
+                    <option value="Oncologia Quirurgica">Oncología Quirúrgica</option>
+                    <option value="Oncologia Quirurgica Pediatrica">Oncología Quirúrgica Pediátrica</option>
+                    <option value="Ortopedia  Y Traumatologia">Ortopedia  Y Traumatología</option>
+                    <option value="Ortopedia Y Traumatologia Pediatrica">Ortopedia Y Traumatología Pediátrica</option>
+                    <option value="Otorrinolaringologia">Otorrinolaringología</option>
+                    <option value="Otorrinolaringologia Pediatrica">Otorrinolaringología Pediátrica</option>
+                    <option value="Pediatria Medica">Pediatría Medica</option>
+                    <option value="Preveimss">Preveimss</option>
+                    <option value="Proctologia">Proctología</option>
+                    <option value="Psiquiatria">Psiquiatría</option>
+                    <option value="Quemados">Quemados</option>
+                    <option value="Quimioterapia">Quimioterapia</option>
+                    <option value="Quirofano">Quirófano</option>
+                    <option value="Radiodiagnostico">Radiodiagnóstico</option>
+                    <option value="Radioterapia">Radioterapia</option>
+                    <option value="Reumatologia">Reumatología</option>
+                    <option value="Reumatologia Pediatrica">Reumatología Pediátrica</option>
+                    <option value="Transplante Renal">Transplante Renal</option>
+                    <option value="Transplante Renal Pediatrico">Transplante Renal Pediátrico</option>
+                    <option value="U.C.I. Adultos">U.C.I. Adultos</option>
+                    <option value="U.C.I. Neonatales">U.C.I. Neonatales</option>
+                    <option value="U.C.I. Pediatrica">U.C.I. Pediátrica</option>
+                    <option value="Ucc Unidad De Cuidados Coronarios">Ucc Unidad De Cuidados Coronarios</option>
+                    <option value="Unidad De Transplante De Medula Osea">Unidad De Transplante De Medula Ósea</option>
+                    <option value="Unidad Metabolica">Unidad Metabólica</option>
+                    <option value="Urgencias">Urgencias</option>
+                    <option value="Urologia">Urología</option>
+                    <option value="Urologia Pediatrica">Urología Pediátrica</option>
+                </select>
+            </div>            
+            
+            <fieldset class="field2">
+                <legend>OBSERVADOR</legend> 
+                <div>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+
+                    <label for="matricula" style="margin-left: 20px;">Matrícula:</label>
+                    <input type="number" id="matricula" name="matricula" min="10000000" max="99999999" required>
+                </div>
+            </fieldset>
+
+            <h4 align="center">OPORTUNIDAD</h4>
+            <div class="form-group">
+                <label for="categoria">Categoría:</label>
+                <select id ="categoria" name="categoria" required>
+                    <option style="display:none"></option>
+                    <option value="Asistente Medica">Asistente Médica</option>
+                    <option value="Auxiliar Universal De Oficinas">Auxiliar Universal De Oficinas</option>
+                    <option value="Camillero">Camillero</option>
+                    <option value="Conservacion">Conservación</option>
+                    <option value="Coord De Estadistica">Coordinación De Estadística</option>
+                    <option value="Enfermera">Enfermera</option>
+                    <option value="Estomatologo">Estomatólogo</option>
+                    <option value="Estudiante">Estudiante</option>
+                    <option value="Familiar">Familiar</option>
+                    <option value="Fisioterapeuta">Fisioterapeuta</option>
+                    <option value="Inhaloterapeuta">Inhaloterapeuta</option>
+                    <option value="Intendencia">Intendencia</option>
+                    <option value="Jefe De Grupo Estadistica">Jefe De Grupo Estadística</option>
+                    <option value="Laboratorista">Laboratorista</option>
+                    <option value="Medico">Medico</option>
+                    <option value="Medico Interno">Medico Interno</option>
+                    <option value="Medico Rehabilitador">Medico Rehabilitador</option>
+                    <option value="Mensajero">Mensajero</option>
+                    <option value="Nutricion">Nutrición</option>
+                    <option value="Oficial De Estadistica">Oficial De Estadística</option>
+                    <option value="Operador Vehiculo">Operador Vehículo</option>
+                    <option value="Personal De Roperia">Personal De Ropería</option>
+                    <option value="Ptdam">Ptdam</option>
+                    <option value="Rayos X">Rayos X</option>
+                    <option value="Residente">Residente</option>
+                    <option value="Terapista Ocupacional">Terapista Ocupacional</option>
+                    <option value="Trabajador Social">Trabajador Social</option>
+                </select>
+            </div>
+            
+            <fieldset id="field1" class="field1">
+                <legend>Indicación:</legend>
+                <div><input type="radio" name="indicacion" value="Ant Asept" />Ant Asept</label></div>
+                <div><input type="radio" name="indicacion" value="Ant Pac" />Ant Pac</label></div>
+                <div><input type="radio" name="indicacion" value="Desp Ent Pac" />Desp Ent Pac</label></div>
+                <div><input type="radio" name="indicacion" value="Desp Pac" />Desp Pac</label></div>
+                <div><input type="radio" name="indicacion" value="Desp Secre" />Desp Secre</label></div>
+            </fieldset>
+            <fieldset id="field2" class="field1">
+                <legend>Acción de HM:</legend>
+                <div><input type="radio" name="accion" value="FM" required /> FM</label></div>
+                <div><input type="radio" name="accion" value="LM" /> LM</label></div>
+                <div><input type="radio" name="accion" value="Omision" /> Omisión</label></div>
+                <div></div>
+                <div><input type="checkbox" name="guantes" class="checkbox" id="guantes"> Guantes</div>
+            </fieldset>
+
+            <div align="center">
+                <button type="clean" class="boton">Limpiar</button>
+                <button type="submit" class="boton">Enviar</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = {
+                turno: document.getElementById('turno').value,
+                servicio: document.getElementById('servicio').value,
+                nombre: document.getElementById('nombre').value,
+                matricula: document.getElementById('matricula').value,
+                categoria: document.getElementById('categoria').value,
+                indicacion: document.querySelector("input[name=indicacion]:checked").value,
+                accion: document.querySelector("input[name=accion]:checked").value,
+                guantes: document.getElementById('guantes').value
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbyjjW3llHVvHwhWRYmxTAILmo87NFHEQLr_W8U4i0wfUTfemKf2l1XH67-jM1BZoXrI/exec', { // Replace with your Web App URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: 'no-cors',
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert('Form submitted successfully!');
+                console.log('Success:', formData);
+            })
+            .catch((error) => {
+                console.error('Error:', formData);
+                alert('An error occurred while submitting the form.');
+            });
+        });
+    </script>
+</body>
+</html>
