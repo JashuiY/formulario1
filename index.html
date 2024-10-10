@@ -359,7 +359,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                mode: 'cors',
+                mode: 'same-origin',
                 body: JSON.stringify(formData)
             })
             .then(response => response.text())
