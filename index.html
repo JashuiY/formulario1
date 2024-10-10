@@ -269,7 +269,7 @@
             </div>
         </form>
     </div>
-
+    <div class="result"></div>
     <footer style="max-width: 650px; align-items: center; margin: auto; font-size: 12px;"> <!-- FOOTER CON ESPECIFICACIONES DE NOMENCLATURAS  -->
         <table style="width: 100%; text-align: left;">
             <tr>
@@ -371,6 +371,9 @@
                 document.getElementById('guantes').checked = false;
                 document.querySelector("input[name=indicacion]:checked").checked = false;
                 document.querySelector("input[name=accion]:checked").checked = false;
+                
+                console.log(JSON.stringify(data));
+                document.getElementById('result').innerHTML = `Received from Google Sheets: ${JSON.stringify(data)}`;
             })
             .catch((error) => {
                 console.error('Error:', formData);
