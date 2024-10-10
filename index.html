@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HGZ 01 - Oaxaca</title>
-    <style>
+    <title>HGZ 01 - Oaxaca</title> 
+    <style>  
         body{
             font-family: 'Georgia', sans-serif;
         }
@@ -94,7 +94,7 @@
         footer{
             font-family: Calibri, sans-serif;
         }
-    </style>
+    </style> <!-- ESTILOS CSS -->
 </head>
 <body>
     <h2 align="center">Formulario de Observación</h2>
@@ -103,7 +103,7 @@
         <form id="dataForm">
             <div class="form-group">
                 <label for="turno">Turno:</label>
-                <select id="turno" name="turno" required>
+                <select id="turno" name="turno" required> <!-- LISTA DESPEGABLE DE TURNOS  -->
                     <option style="display:none"></option>
                     <option value="Jornada Acumulada">Jornada Acumulada</option>
                     <option value="Matutino">Matutino</option>
@@ -113,7 +113,7 @@
             </div>
             <div class="form-group">
                 <label for="servicio">Servicio:</label>
-                <select id="servicio" name="servicio" required>
+                <select id="servicio" name="servicio" required> <!-- LISTA DESPEGABLE DE SERVICIOS -->
                     <option style="display:none"></option>
                     <option value="Alergia E Inmunologia">Alergia E Inmunología</option>
                     <option value="Angiologia">Angiología</option>
@@ -202,11 +202,10 @@
             </div>            
             
             <div class="form-group">
-                <fieldset class="field2">
+                <fieldset class="field2"> <!-- CUADRO CON OBSERVADOR  -->
                     <legend>OBSERVADOR</legend> 
                     <div>
                         <input class="observador" type="text" id="nombre" name="nombre" placeholder="Nombre" style="width:60%" required>
-
                         <input class="observador" type="number" id="matricula" name="matricula" placeholder="Matrícula" style="width:35%" required>
                     </div>
                 </fieldset>
@@ -215,7 +214,7 @@
             <h4 align="center">OPORTUNIDAD</h4>
             <div class="form-group">
                 <label for="categoria">Categoría:</label>
-                <select id ="categoria" name="categoria" required>
+                <select id ="categoria" name="categoria" required> <!-- LISTA DESPLEGABLE CON CATEGORIAS  -->
                     <option name="categoria" style="display:none"></option>
                     <option name="categoria" value="Asistente Medica">Asistente Médica</option>
                     <option name="categoria" value="Auxiliar Universal De Oficinas">Auxiliar Universal De Oficinas</option>
@@ -247,7 +246,7 @@
                 </select>
             </div>
             
-            <fieldset id="field1" class="field1">
+            <fieldset id="field1" class="field1"> <!-- CUADRO CON INDICACIONES -->
                 <legend>Indicación:</legend>
                 <div><input type="radio" name="indicacion" value="ant pac" /> Ant. pac.</label></div>
                 <div><input type="radio" name="indicacion" value="ant asept" /> Ant. asept.</label></div>
@@ -255,7 +254,7 @@
                 <div><input type="radio" name="indicacion" value="desp pac" /> Desp. pac.</label></div>
                 <div><input type="radio" name="indicacion" value="desp secre" /> Desp. fc.</label></div>
             </fieldset>
-            <fieldset id="field2" class="field1">
+            <fieldset id="field2" class="field1"> <!-- CUADRO CON ACCIONES -->
                 <legend>Acción de HM:</legend>
                 <div><input type="radio" name="accion" value="FM" id="fm" required /> FM</label></div>
                 <div><input type="radio" name="accion" value="LM" id="lm" /> LM</label></div>
@@ -270,7 +269,10 @@
             </div>
         </form>
     </div>
-    <footer style="max-width: 650px; align-items: center; margin: auto; font-size: 12px;">
+
+    <div id="result"></div>
+
+    <footer style="max-width: 650px; align-items: center; margin: auto; font-size: 12px;"> <!-- FOOTER CON ESPECIFICACIONES DE NOMENCLATURAS  -->
         <table style="width: 100%; text-align: left;">
             <tr>
                 <th colspan="2">Indicación</th>
@@ -304,13 +306,10 @@
     <script>
         document.getElementById('categoria').addEventListener('change', function(event){
             initTime = new Date();
-            //console.log(initTime);
         });
-
         document.getElementById('omision').addEventListener('change', function(event){
             document.getElementById('guantes').disabled = false;
         });
-
         document.getElementById('fm').addEventListener('change', function(event){
             document.getElementById('guantes').disabled = true;
             document.getElementById('guantes').checked = false;
@@ -322,6 +321,11 @@
 
         document.getElementById('dataForm').addEventListener('submit', function(event) {
             event.preventDefault();
+
+            if (typeof initTime === 'undefined'){
+                alert('Cambie Categoría a otro valor y regrese al valor original.');
+                return;
+            }
 
             if (!(document.getElementById('nombre').value).includes(" ")) {
                 alert('Ingrese su Nombre Completo.');
@@ -357,7 +361,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                mode: 'no-cors',
+                mode: 'cors',
                 body: JSON.stringify(formData)
             })
             .then(response => response.text())
@@ -369,6 +373,9 @@
                 document.getElementById('guantes').checked = false;
                 document.querySelector("input[name=indicacion]:checked").checked = false;
                 document.querySelector("input[name=accion]:checked").checked = false;
+
+                console.log(JSON.stringify(data));
+                document.getElementById('result').innerHTML = `Received from Google Sheets: ${JSON.stringify(data)}`;
             })
             .catch((error) => {
                 console.error('Error:', formData);
