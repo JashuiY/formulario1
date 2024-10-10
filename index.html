@@ -373,7 +373,7 @@
                 document.querySelector("input[name=accion]:checked").checked = false;
                 
                 console.log(JSON.stringify(data));
-                document.getElementById('result').innerHTML = `Received from Google Sheets: ${JSON.stringify(data)}`;
+                //document.getElementById('result').innerHTML = `Received from Google Sheets: ${JSON.stringify(data)}`;
             })
             .catch((error) => {
                 console.error('Error:', formData);
