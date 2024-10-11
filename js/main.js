@@ -88,7 +88,8 @@ document.getElementById('dataForm').addEventListener('submit', function(event) {
         indicacion: document.querySelector("input[name=indicacion]:checked").value,
         accion: document.querySelector("input[name=accion]:checked").value,
         guantes: document.getElementById('guantes').checked,
-        time: duracion
+        time: duracion,
+        matricula2: document.getElementById('matriculaOpo').value
     };
     //console.log(time, duracion);
     fetch('https://script.google.com/macros/s/AKfycbzueeotoZOjeWasFBl39QtYz15ztsknVzVr3fI2cLB8wboLmsUA0hVEhUZv3l-7BoPdZw/exec', { // Replace with your Web App URL
