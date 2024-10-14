@@ -5,12 +5,16 @@ document.getElementById('categoria').addEventListener('change', function(event){
 });
 document.getElementById('omision').addEventListener('change', function(event){
     document.getElementById('guantes').disabled = false;
+    document.getElementById('fm').checked = false;
+    document.getElementById('lm').checked = false;
 });
 document.getElementById('fm').addEventListener('change', function(event){
+    document.getElementById('omision').checked = false;
     document.getElementById('guantes').disabled = true;
     document.getElementById('guantes').checked = false;
 });
 document.getElementById('lm').addEventListener('change', function(event){
+    document.getElementById('omision').checked = false;
     document.getElementById('guantes').disabled = true;
     document.getElementById('guantes').checked = false;
 });
@@ -34,13 +38,12 @@ document.getElementById('categoria').addEventListener('change', function(event){
         document.getElementById('categoriatag').hidden = true;
         document.getElementById('categoriatxt').hidden = true;
         document.getElementById('categoriatxt').required = false;
-
     }
 });
 async function submitForm() {
     document.getElementById('submit').disabled = true;
     if (typeof initTime === 'undefined'){
-        alert('Cambie Categoría a otro valor y regrese al valor original.');
+        alert('Cambie Categoría a cualquier otro valor y regrese al valor original.');
         document.getElementById('submit').disabled = false;
         return;
     }
@@ -50,6 +53,11 @@ async function submitForm() {
         return;
     }
     if (document.getElementById('matricula').value.length != 8){
+        alert('Ingrese una Matricula correcta: 8 dígitos.');
+        document.getElementById('submit').disabled = false;
+        return;
+    }
+    if (document.getElementById('matriculaOpo').value.length != 8){
         alert('Ingrese una Matricula correcta: 8 dígitos.');
         document.getElementById('submit').disabled = false;
         return;
@@ -74,22 +82,31 @@ async function submitForm() {
     }else{
         categoriavalue = document.getElementById('categoria').value;
     }
-            //window.confirm("Se registrará otra oportunidad a la anterior?");
+    const indicaciones = document.querySelectorAll('input[name="indicacion"]');
+    const selected_ind = Array.from(indicaciones).some(indicacion => indicacion.checked);
+    const values_ind = Array.from(indicaciones).filter(indicacion => indicacion.checked).map(indicacion => indicacion.value.toUpperCase());
+    if (!selected_ind){
+        alert('Seleccione al menos una indicación.')
+        document.getElementById('submit').disabled = false;
+        return;
+    }
+    //console.log(values_ind);
+    //window.confirm("Se registrará otra oportunidad a la anterior?");
 
     endTime = new Date();
     var time = endTime - initTime;
     var minutes = Math.floor(time/(1000*60)).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-    var seconds = Math.floor(time/1000).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-    var mseconds = time - (seconds*1000);
+    var seconds = Math.floor(time/1000).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) - (minutes * 60);
+    var mseconds = time - (seconds * 1000) - (minutes * 60 * 1000);
     var duracion = minutes + ":" + seconds + "." + mseconds;    
     const formData = {
-        turno: document.getElementById('turno').value,
-        servicio: serviciovalue,
-        nombre: document.getElementById('nombre').value,
+        turno: document.getElementById('turno').value.toUpperCase(),
+        servicio: serviciovalue.toUpperCase(),
+        nombre: document.getElementById('nombre').value.toUpperCase(),
         matricula: document.getElementById('matricula').value,
-        categoria: categoriavalue,
-        indicacion: document.querySelector("input[name=indicacion]:checked").value,
-        accion: document.querySelector("input[name=accion]:checked").value,
+        categoria: categoriavalue.toUpperCase(),
+        indicacion: values_ind, //document.querySelector("input[name=indicacion]:checked").value.toUpperCase(),
+        accion: document.querySelector("input[name=accion]:checked").value.toUpperCase(),
         guantes: document.getElementById('guantes').checked,
         time: duracion,
         matricula2: document.getElementById('matriculaOpo').value
@@ -114,25 +131,45 @@ async function submitForm() {
                 document.getElementById(i.toString()).checked = false;
                 document.getElementById(i.toString()).disabled = false;
             }
-            console.log('Data saved and received:', result.data[0]["oportunidad"]);
+            if (result.data.length >= 8){
+                alert('Ha sobrepasado el límite de oportunidades para la matrícula observada.');
+                document.getElementById('categoria').value = '';
+                document.getElementById('matriculaOpo').value = '';
+                for (var i = 1; i <= 5; i++) {
+                    document.getElementById('indicacion'+i.toString()).checked = false;
+                }
+                document.getElementById('1').checked = true;
+                for (var i = 2; i <= 8; i++) {
+                    document.getElementById(i.toString()).disabled = true;
+                }
+                document.querySelector("input[name=accion]:checked").checked = false;
+                document.getElementById('guantes').checked = false;
+                document.getElementById('submit').disabled = false;
+                return;
+            }
+            console.log('Data saved and received:', formData, result.data.length); //result.data[0]["oportunidad"]
+            //document.getElementById('result').textContent = JSON.stringify(result.data, null, 2);
             alert('Información registrada correctamente.');
-            //document.getElementById('categoria').value = '';
             document.getElementById('guantes').checked = false;
-            document.querySelector("input[name=indicacion]:checked").checked = false;
+            //document.querySelector("input[name=indicacion]:checked").checked = false;
             document.querySelector("input[name=accion]:checked").checked = false;
             document.getElementById('categoriatag').hidden = true;
             document.getElementById('categoriatxt').hidden = true;
-            document.getElementById('categoriatxt').value = '';        
-            //document.getElementById('matriculaOpo').value = '';
+            document.getElementById('categoriatxt').value = '';
             valor = valor + 1;
             document.getElementById('submit').disabled = false;
-            for (var i = 1; i <= result.data.length; i++) {
+            for (var i = 1; i <= result.data.length+1; i++) {
                 document.getElementById(i.toString()).checked = true;
                 document.getElementById(i.toString()).disabled = true;
             }
-            document.getElementById((result.data.length+1).toString()).checked = true;
-            for (var i = result.data.length+2; i <= 8; i++) {
+            if ((result.data.length+2) <= 8) {                
+                document.getElementById((result.data.length+2).toString()).checked = true;
+            }
+            for (var i = result.data.length+3; i <= 8; i++) {
                 document.getElementById(i.toString()).disabled = true;
+            }
+            for (var i = 1; i <= 5; i++) {
+                document.getElementById('indicacion'+i.toString()).checked = false;
             }
         } else {
             console.error('Error:', result.message);
