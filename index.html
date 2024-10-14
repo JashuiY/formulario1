@@ -7,10 +7,17 @@
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <h2 align="center" style="color: white;">Formulario de Observación</h2>
-    <h5 align="center" style="color: white;"><script type="text/javascript">var timestamp = new Date();document.write(timestamp.toLocaleString("es-mx"));</script></h5>
+    <h2 align="center" >Formulario de Observación</h2>
+    <h5 align="center" ><script type="text/javascript">var timestamp = new Date();document.write(timestamp.toLocaleString("es-mx"));</script></h5>
+    <!---<center><select id="hospital" style="max-width: 600px; align-items: center; margin: auto;" required>
+        <option style="display:none"></option>
+        <option value='HGZ 01'>HGZ 01</option>
+        <option value="HGZMF 02">HGZMF 02</option>
+        <option value="HGZ 03">HGZ 03</option>
+        <option value="HGSMF 41">HGSMF 41</option>
+    </select></center> --->
     <div class="form-container">
-        <form id="dataForm">
+        <form id="dataForm" onsubmit="event.preventDefault(); submitForm();">
             <div class="form-group">
                 <label for="turno">Turno:</label>
                 <select id="turno" name="turno" required> <!-- LISTA DESPEGABLE DE TURNOS  -->
@@ -68,7 +75,24 @@
                 </fieldset>
             </div>
 
-            <h4 align="center">OPORTUNIDAD</h4>
+            <hr color='#00594c' width='200%' size="10px" class="line">
+
+            <center>
+            <div class="form-group" style="margin-top:20PX; margin-bottom: 10px; align-items: center;">
+                <fieldset class="field2">
+                    <label for="oportunidad">OPORTUNIDAD: </label>
+                    <input id="1" type="checkbox" name="oportunidad" disabled>  1
+                    <input id="2" type="checkbox" name="oportunidad" disabled>  2
+                    <input id="3" type="checkbox" name="oportunidad" disabled>  3
+                    <input id="4" type="checkbox" name="oportunidad" disabled>  4
+                    <input id="5" type="checkbox" name="oportunidad" disabled>  5
+                    <input id="6" type="checkbox" name="oportunidad" disabled>  6
+                    <input id="7" type="checkbox" name="oportunidad" disabled>  7
+                    <input id="8" type="checkbox" name="oportunidad" disabled>  8                    
+                </fieldset>
+            </div>
+            </center>
+
             <div class="form-group">
                 <label for="categoria">Categoría:</label>
                 <select id ="categoria" name="categoria" required> <!-- LISTA DESPLEGABLE CON CATEGORIAS  -->
@@ -95,7 +119,7 @@
                 <label id="categoriatag" for="otroCategoria" style="margin-left: 10px;" hidden>Especifique:</label>
                 <input id="categoriatxt" type="text" name="otroCategoria" placeholder="Otra categoría: " hidden>
             </div>
-            
+
             <div class="form-group">
                 <input id="matriculaOpo" type="number" name="matriculaOportunidad" placeholder="matricula" style="width: 50%; margin-bottom: 20px;" required>
             </div> 
@@ -123,6 +147,8 @@
             </div>
         </form>
     </div>
+
+    <div id="result"></div>
 
     <footer style="max-width: 650px; align-items: center; margin: auto; font-size: 12px;"> <!-- FOOTER CON ESPECIFICACIONES DE NOMENCLATURAS  -->
         <table style="width: 100%; text-align: left;">
